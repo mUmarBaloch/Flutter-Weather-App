@@ -19,3 +19,6 @@ final BoxDecoration predictionCardDecoration = BoxDecoration(
         spreadRadius: 0,
       )
     ]);
+
+final BoxDecoration cardDecoration = BoxDecoration(
+    color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15)));

@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 
 class PredictionCard extends StatelessWidget {
+  final temprature;
+  final status;
+
+  const PredictionCard({this.temprature, this.status});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,41 +22,38 @@ class PredictionCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '23',
+              '$temprature',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40,
               ),
             ),
             Text(
-              'clear',
+              '$status',
               style: TextStyle(
                   color: Colors.white, fontSize: 15, letterSpacing: 1),
             ),
+            SizedBox(height: 5),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Column(
                   children: [
-                    Icon(
-                      Icons.cloud,
-                      color: Colors.white,
-                      size: 20,
+                    Image(
+                      image: AssetImage('assets/rainIcon.png'),
                     ),
                     Text(
-                      '0%',
+                      '23%',
                       style: TextStyle(
                           color: Colors.white, fontSize: 15, letterSpacing: 1),
                     ),
                   ],
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.redeem,
-                      color: Colors.white,
-                      size: 20,
-                    ),
+                    Image.asset('assets/rainDropIcon.png'),
                     Text(
                       '0%',
                       style: TextStyle(

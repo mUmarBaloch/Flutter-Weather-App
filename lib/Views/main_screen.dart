@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/Views/Widgets/prediction_card.dart';
+import 'package:weather_app/constants.dart';
+import 'package:weather_app/core/device_config.dart';
+import 'package:weather_app/models/wether_model.dart';
+import 'package:weather_app/views/Widgets/prediction_card.dart' as card;
+import 'package:weather_app/views/Widgets/top_weather_widget.dart';
 
 import 'Widgets/prayer_card.dart';
 
 class MainScreen extends StatelessWidget {
   @override
+  Weather _data = Weather();
+  DeviceConfig _device = DeviceConfig();
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -18,87 +25,69 @@ class MainScreen extends StatelessWidget {
         ),
       ),
       child: Column(children: <Widget>[
-        Container(
-          height: 200,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/asar.jpg'), fit: BoxFit.cover)),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                'Mirpukhas',
-                style: TextStyle(
-                    color: Colors.white, letterSpacing: 0.5, fontSize: 18),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                '19',
-                style: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: -5,
-                    fontSize: 80,
-                    fontWeight: FontWeight.w600),
-              ),
-              Text(
-                'cloudy',
-                style: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: 0.2,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 30),
+        TopWeatherWidget(),
+        SizedBox(height: _device.height * 0.05),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: Container(
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                SizedBox(
-                  width: 20,
-                ),
-                PredictionCard(),
-                SizedBox(
-                  width: 20,
-                ),
-                PredictionCard(),
-                SizedBox(
-                  width: 20,
-                ),
-                PredictionCard(),
-              ],
+              children: sample
+                  .map((obj) => card.PredictionCard(
+                      temprature: obj.temprature, status: obj.status))
+                  .toList(),
             ),
-            height: 150,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15))),
+            height: _device.height * 0.22,
+            decoration: cardDecoration,
           ),
         ),
-        SizedBox(height: 30),
+        SizedBox(height: _device.height * 0.05),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+            child: Column(
               children: [
-                SizedBox(width: 20),
-                PrayerCard(),
-                SizedBox(width: 20),
-                PrayerCard(),
-                SizedBox(width: 20),
-                PrayerCard(),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Column(
+                      children: [
+                        Text('6:00 AM'),
+                        Image.asset(
+                          'assets/sunsriseIcon.png',
+                        ),
+                      ],
+                    ),
+                    Image.asset('assets/Line.png'),
+                    Column(
+                      children: [
+                        Text('5:30 PM'),
+                        Image.asset('assets/sunsetIco.png'),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      PrayerCard(),
+                      PrayerCard(),
+                      PrayerCard(),
+                      PrayerCard(),
+                    ],
+                  ),
+                ),
               ],
             ),
-            height: 150,
+            height: _device.height * 0.32,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(15))),
