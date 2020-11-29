@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/models/wether_model.dart';
+import 'package:weather_app/models/weather_model.dart';
 
 class TopWeatherWidget extends StatelessWidget {
   @override

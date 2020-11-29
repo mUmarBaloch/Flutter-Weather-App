@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 
 class PredictionCard extends StatelessWidget {
-  final temprature;
-  final status;
+  final int temprature;
+  final String status;
+  final num humidity;
+  final num rainChances;
 
-  const PredictionCard({this.temprature, this.status});
+  const PredictionCard({
+    this.temprature,
+    this.status,
+    this.humidity,
+    this.rainChances,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +51,7 @@ class PredictionCard extends StatelessWidget {
                       image: AssetImage('assets/rainIcon.png'),
                     ),
                     Text(
-                      '23%',
+                      '$rainChances%',
                       style: TextStyle(
                           color: Colors.white, fontSize: 15, letterSpacing: 1),
                     ),
@@ -55,7 +62,7 @@ class PredictionCard extends StatelessWidget {
                   children: [
                     Image.asset('assets/rainDropIcon.png'),
                     Text(
-                      '0%',
+                      '$humidity%',
                       style: TextStyle(
                           color: Colors.white, fontSize: 15, letterSpacing: 1),
                     ),

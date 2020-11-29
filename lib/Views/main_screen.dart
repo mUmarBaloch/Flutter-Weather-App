@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/Views/Widgets/prediction_card.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/models/wether_model.dart';
-import 'package:weather_app/views/Widgets/prediction_card.dart' as card;
+import 'package:weather_app/models/prediction_weather_model.dart';
+import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/views/Widgets/top_weather_widget.dart';
 
 import 'Widgets/prayer_card.dart';
+import 'Widgets/prediction_card.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -28,22 +28,25 @@ class MainScreen extends StatelessWidget {
         TopWeatherWidget(),
         SizedBox(height: _device.height * 0.05),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           child: Container(
-            child: ListView(
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              children: sample
-                  .map((obj) => card.PredictionCard(
-                      temprature: obj.temprature, status: obj.status))
-                  .toList(),
+              itemBuilder: (context, index) => PredictionCard(
+                temprature: prediction[index].temprature,
+                status: prediction[index].status,
+                rainChances: prediction[index].rainChances,
+                humidity: prediction[index].humidity,
+              ),
+              itemCount: prediction.length,
             ),
             height: _device.height * 0.22,
             decoration: cardDecoration,
           ),
         ),
-        SizedBox(height: _device.height * 0.05),
+        SizedBox(height: _device.height * 0.03),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Container(
             child: Column(
               children: [
@@ -75,19 +78,15 @@ class MainScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Expanded(
-                  child: ListView(
+                  child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    children: [
-                      PrayerCard(),
-                      PrayerCard(),
-                      PrayerCard(),
-                      PrayerCard(),
-                    ],
+                    itemBuilder: (context, index) => PrayerCard(),
+                    itemCount: 5,
                   ),
-                ),
+                )
               ],
             ),
-            height: _device.height * 0.32,
+            height: _device.height * 0.30,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(15))),

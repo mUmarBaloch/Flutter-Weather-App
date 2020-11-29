@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/core/device_config.dart';
 
 class PrayerCard extends StatelessWidget {
   @override
@@ -10,14 +11,14 @@ class PrayerCard extends StatelessWidget {
             vertical: 10,
           ),
           height: 120,
-          width: 100,
+          width: DeviceConfig().width * 0.15,
           decoration: BoxDecoration(
             color: Colors.green,
             image: DecorationImage(
               fit: BoxFit.fitHeight,
               image: AssetImage('assets/fajr.jpg'),
             ),
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(.25),
@@ -38,13 +39,6 @@ class PrayerCard extends StatelessWidget {
                         height: 15,
                       ),
                       Text(
-                        'time Starts',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            letterSpacing: 0.5),
-                      ),
-                      Text(
                         '6:20',
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
@@ -60,8 +54,8 @@ class PrayerCard extends StatelessWidget {
                 height: 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(18),
-                      bottomLeft: Radius.circular(18)),
+                      bottomRight: Radius.circular(12),
+                      bottomLeft: Radius.circular(12)),
                   color: Color.fromRGBO(138, 104, 236, 1),
                 ),
                 child: Center(
