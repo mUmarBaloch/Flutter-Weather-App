@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/core/device_config.dart';
 import 'package:weather_app/models/weather_model.dart';
+import 'package:weather_app/views/settings.dart';
 
 class TopWeatherWidget extends StatelessWidget {
   @override
@@ -18,10 +19,17 @@ class TopWeatherWidget extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            Text(
-              'Mirpukhas',
-              style: TextStyle(
-                  color: Colors.white, letterSpacing: 0.5, fontSize: 18),
+            InkWell(
+              onTap: () => showDialog(
+                  barrierDismissible: true,
+                  useSafeArea: true,
+                  context: context,
+                  builder: (context) => Settings()),
+              child: Text(
+                'Mirpukhas',
+                style: TextStyle(
+                    color: Colors.white, letterSpacing: 0.5, fontSize: 18),
+              ),
             ),
             SizedBox(
               height: 20,
