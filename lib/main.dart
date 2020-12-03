@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/Views/main_screen.dart';
-import 'package:weather_app/views/settings.dart';
 
 void main() {
   runApp(MyApp());
