@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/core/device_config.dart';
+import 'package:weather_app/models/prayer_models.dart';
 import 'package:weather_app/models/prediction_weather_model.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/views/Widgets/top_weather_widget.dart';
@@ -53,34 +54,17 @@ class MainScreen extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Column(
-                      children: [
-                        Text('6:00 AM'),
-                        Image.asset(
-                          'assets/sunsriseIcon.png',
-                        ),
-                      ],
-                    ),
-                    Image.asset('assets/Line.png'),
-                    Column(
-                      children: [
-                        Text('5:30 PM'),
-                        Image.asset('assets/sunsetIco.png'),
-                      ],
-                    ),
-                  ],
-                ),
+                sunStatus(),
                 SizedBox(
                   height: 10,
                 ),
                 Expanded(
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => PrayerCard(),
+                    itemBuilder: (context, index) => PrayerCard(
+                      prayerName: prayerName[index],
+                      prayerBg: prayerBg[index],
+                    ),
                     itemCount: 5,
                   ),
                 )
@@ -93,6 +77,30 @@ class MainScreen extends StatelessWidget {
           ),
         ),
       ]),
+    );
+  }
+
+  Row sunStatus() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Column(
+          children: [
+            Text('6:00 AM'),
+            Image.asset(
+              'assets/sunsriseIcon.png',
+            ),
+          ],
+        ),
+        Image.asset('assets/Line.png'),
+        Column(
+          children: [
+            Text('5:30 PM'),
+            Image.asset('assets/sunsetIco.png'),
+          ],
+        ),
+      ],
     );
   }
 }

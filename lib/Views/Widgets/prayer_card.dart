@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/core/device_config.dart';
 
 class PrayerCard extends StatelessWidget {
+  final prayerName;
+  final prayerTime;
+  final prayerBg;
+  final timeNow = DateTime.now().hour - 12;
+  PrayerCard({this.prayerName, this.prayerTime, this.prayerBg});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +21,9 @@ class PrayerCard extends StatelessWidget {
             color: Colors.green,
             image: DecorationImage(
               fit: BoxFit.fitHeight,
-              image: AssetImage('assets/fajr.jpg'),
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(.5), BlendMode.srcATop),
+              image: AssetImage('assets/$prayerBg'),
             ),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
@@ -39,7 +46,7 @@ class PrayerCard extends StatelessWidget {
                         height: 15,
                       ),
                       Text(
-                        '6:20',
+                        '$timeNow:${DateTime.now().minute}',
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       Text(
@@ -60,7 +67,7 @@ class PrayerCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'FAJR',
+                    '$prayerName',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
