@@ -2,6 +2,16 @@
 
 import 'package:flutter/material.dart';
 
+final BoxDecoration mainScreenDecoration = BoxDecoration(
+  gradient: LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color.fromRGBO(53, 122, 224, 1),
+      Color.fromRGBO(104, 188, 236, 1),
+    ],
+  ),
+);
 final BoxDecoration predictionCardDecoration = BoxDecoration(
     gradient: LinearGradient(
         begin: Alignment.topCenter,

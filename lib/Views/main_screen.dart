@@ -15,66 +15,14 @@ class MainScreen extends StatelessWidget {
   DeviceConfig _device = DeviceConfig();
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromRGBO(53, 122, 224, 1),
-            Color.fromRGBO(104, 188, 236, 1),
-          ],
-        ),
-      ),
+      decoration: mainScreenDecoration,
       child: Column(children: <Widget>[
         TopWeatherWidget(),
         SizedBox(height: _device.height * 0.05),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-          child: Container(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => PredictionCard(
-                temprature: prediction[index].temprature,
-                status: prediction[index].status,
-                rainChances: prediction[index].rainChances,
-                humidity: prediction[index].humidity,
-              ),
-              itemCount: prediction.length,
-            ),
-            height: _device.height * 0.22,
-            decoration: cardDecoration,
-          ),
-        ),
+        PredictionCardContainer(),
         SizedBox(height: _device.height * 0.03),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Container(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                sunStatus(),
-                SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => PrayerCard(
-                      prayerName: prayerName[index],
-                      prayerBg: prayerBg[index],
-                    ),
-                    itemCount: 5,
-                  ),
-                )
-              ],
-            ),
-            height: _device.height * 0.30,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15))),
-          ),
+        prayerCardContainer(
+          sunStatus: sunStatus,
         ),
       ]),
     );
@@ -82,7 +30,7 @@ class MainScreen extends StatelessWidget {
 
   Row sunStatus() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Column(
@@ -103,4 +51,63 @@ class MainScreen extends StatelessWidget {
       ],
     );
   }
+}
+
+class PredictionCardContainer extends StatelessWidget {
+  DeviceConfig _device = DeviceConfig();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) => PredictionCard(
+          temprature: prediction[index].temprature,
+          status: prediction[index].status,
+          rainChances: prediction[index].rainChances,
+          humidity: prediction[index].humidity,
+        ),
+        itemCount: prediction.length,
+      ),
+      height: _device.height * 0.22,
+      decoration: cardDecoration,
+    );
+  }
+}
+
+class prayerCardContainer extends StatelessWidget {
+  @override
+  DeviceConfig _device = DeviceConfig();
+  final sunStatus;
+
+  prayerCardContainer({this.sunStatus});
+
+  Widget build(BuildContext context) => Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            sunStatus(),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => PrayerCard(
+                  prayerName: prayerName[index],
+                  prayerBg: prayerBg[index],
+                ),
+                itemCount: 5,
+              ),
+            )
+          ],
+        ),
+        height: _device.height * 0.30,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(15))),
+      );
 }

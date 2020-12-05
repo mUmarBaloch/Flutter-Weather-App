@@ -22,7 +22,6 @@ class TopWeatherWidget extends StatelessWidget {
             InkWell(
               onTap: () => showDialog(
                   barrierDismissible: true,
-                  useSafeArea: true,
                   context: context,
                   builder: (context) => Settings()),
               child: Text(

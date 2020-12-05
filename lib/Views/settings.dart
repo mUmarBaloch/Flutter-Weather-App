@@ -27,15 +27,23 @@ class Settings extends StatelessWidget {
               width: 350,
               child: Column(
                 children: [
-                  SizedBox(height: 15),
-                  Align(
-                      alignment: Alignment.topCenter,
-                      child: Icon(
-                        Icons.settings,
-                        size: 45,
-                        color: Color.fromRGBO(138, 104, 236, 1),
-                      )),
-                  SizedBox(height: 10),
+                  spacer(15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        child: buildIcon(Icons.arrow_back_ios_outlined),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      buildIcon(Icons.settings),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
+                  spacer(10),
                   ListTile(
                     leading: Icon(
                       Icons.location_pin,
@@ -53,52 +61,43 @@ class Settings extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ListTile(
-                    title: Text(
-                      'Remind me when its Rainy Tommorrow',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                    trailing:
-                        Radio(value: true, groupValue: null, onChanged: null),
+                  buildOption("Remind me when its Rainy Tommorrow", null),
+                  spacer(10),
+                  buildIcon(
+                    Icons.nightlight_round,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Align(
-                      alignment: Alignment.topCenter,
-                      child: Icon(
-                        Icons.nightlight_round,
-                        size: 45,
-                        color: Color.fromRGBO(138, 104, 236, 1),
-                      )),
+                  spacer(10),
+                  buildOption("Show me Prayer times", null),
                   SizedBox(height: 10),
-                  ListTile(
-                    title: Text(
-                      'Show me Prayer times',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                    trailing:
-                        Radio(value: true, groupValue: null, onChanged: null),
-                  ),
-                  SizedBox(height: 10),
-                  ListTile(
-                    title: Text(
-                      'remind me when its prayer time',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                    trailing:
-                        Radio(value: true, groupValue: null, onChanged: null),
-                  ),
+                  buildOption("remind me when its prayer time", null)
                 ],
               ),
             ),
           ),
         ),
       );
+
+  SizedBox spacer(double height) => SizedBox(height: height);
+
+  Align buildIcon(IconData icon, {int size = 45}) {
+    return Align(
+        alignment: Alignment.topCenter,
+        child: Icon(
+          icon,
+          size: 45,
+          color: Color.fromRGBO(138, 104, 236, 1),
+        ));
+  }
+
+  ListTile buildOption(text, function) {
+    return ListTile(
+      title: Text(
+        '$text',
+        style: TextStyle(
+          fontSize: 14,
+        ),
+      ),
+      trailing: Radio(value: true, groupValue: null, onChanged: function),
+    );
+  }
 }
