@@ -21,40 +21,14 @@ class MainScreen extends StatelessWidget {
         SizedBox(height: _device.height * 0.05),
         PredictionCardContainer(),
         SizedBox(height: _device.height * 0.03),
-        prayerCardContainer(
-          sunStatus: sunStatus,
-        ),
+        prayerCardContainer(),
       ]),
-    );
-  }
-
-  Row sunStatus() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Column(
-          children: [
-            Text('6:00 AM'),
-            Image.asset(
-              'assets/sunsriseIcon.png',
-            ),
-          ],
-        ),
-        Image.asset('assets/Line.png'),
-        Column(
-          children: [
-            Text('5:30 PM'),
-            Image.asset('assets/sunsetIco.png'),
-          ],
-        ),
-      ],
     );
   }
 }
 
 class PredictionCardContainer extends StatelessWidget {
-  DeviceConfig _device = DeviceConfig();
+  final DeviceConfig _device = DeviceConfig();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,10 +52,6 @@ class PredictionCardContainer extends StatelessWidget {
 class prayerCardContainer extends StatelessWidget {
   @override
   DeviceConfig _device = DeviceConfig();
-  final sunStatus;
-
-  prayerCardContainer({this.sunStatus});
-
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
@@ -110,4 +80,36 @@ class prayerCardContainer extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(15))),
       );
+
+  Row sunStatus() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Column(
+          children: [
+            Text('6:00 AM'),
+            Image.asset(
+              'assets/sunsriseIcon.png',
+            ),
+          ],
+        ),
+        Container(
+            width: 220,
+            height: 30,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                      'assets/Line.png',
+                    ),
+                    fit: BoxFit.fitWidth))),
+        Column(
+          children: [
+            Text('5:30 PM'),
+            Image.asset('assets/sunsetIco.png'),
+          ],
+        ),
+      ],
+    );
+  }
 }
