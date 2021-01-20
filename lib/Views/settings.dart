@@ -99,6 +99,9 @@ class _SettingsState extends State<Settings> {
 
                           Timer(Duration(seconds: 3), () {
                             print(ApiData.celcius);
+                            setState(() {
+                              ApiData.city = _temproryCity.toUpperCase();
+                            });
                           });
                         } catch (e) {
                           print('its an error $e');

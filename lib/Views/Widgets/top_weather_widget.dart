@@ -31,7 +31,7 @@ class _TopWeatherWidgetState extends State<TopWeatherWidget> {
                   context: context,
                   builder: (context) => Settings()),
               child: Text(
-                'Mirpukhas',
+                '${ApiData.city}',
                 style: TextStyle(
                     color: Colors.white, letterSpacing: 0.5, fontSize: 18),
               ),
