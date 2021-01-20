@@ -1,9 +1,34 @@
+import 'dart:async';
 import 'dart:ui';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/core/services/api_manger.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  TextEditingController _searchCityController = TextEditingController();
+  Future getLocationKey(String city) async {
+    var request = await http
+        .get('${ApiData.endpointCurrentWeather}key=${ApiData.apiKey}&q=$city');
+    if (request != null) {
+      Map response = await jsonDecode(request.body);
+      var result = response['current']['temp_c'];
+      setState(() {
+        ApiData.celcius = result;
+        print(ApiData.locationKey);
+      });
+    } else {
+      print(
+          'There was an error occured while requesting the server for location key, Status Code is ${request.statusCode}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
@@ -53,12 +78,37 @@ class Settings extends StatelessWidget {
                     title: Card(
                       elevation: 05,
                       child: TextField(
+                        controller: _searchCityController,
                         showCursor: false,
                         decoration: InputDecoration(
                           hintText: 'Location',
                           enabledBorder: InputBorder.none,
                         ),
                       ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.search,
+                        size: 30,
+                        color: Color.fromRGBO(138, 104, 236, 1),
+                      ),
+                      onPressed: () async {
+                        try {
+                          await getLocationKey('${_searchCityController.text}');
+                          var _temproryCity = _searchCityController.text;
+
+                          Timer(Duration(seconds: 3), () {
+                            print(ApiData.celcius);
+                          });
+                        } catch (e) {
+                          print('its an error $e');
+                          showBottomSheet(
+                              context: context,
+                              builder: (context) => Container(
+                                    child: Text(e),
+                                  ));
+                        }
+                      },
                     ),
                   ),
                   buildOption("Remind me when its Rainy Tommorrow", null),

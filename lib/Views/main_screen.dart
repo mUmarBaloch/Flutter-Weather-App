@@ -9,10 +9,15 @@ import 'package:weather_app/views/Widgets/top_weather_widget.dart';
 import 'Widgets/prayer_card.dart';
 import 'Widgets/prediction_card.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   @override
-  Weather _data = Weather();
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  @override
   DeviceConfig _device = DeviceConfig();
+
   Widget build(BuildContext context) {
     return Container(
       decoration: mainScreenDecoration,

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/core/device_config.dart';
+import 'package:weather_app/core/services/api_manger.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/views/settings.dart';
 
-class TopWeatherWidget extends StatelessWidget {
+class TopWeatherWidget extends StatefulWidget {
+  @override
+  _TopWeatherWidgetState createState() => _TopWeatherWidgetState();
+}
+
+class _TopWeatherWidgetState extends State<TopWeatherWidget> {
   @override
   Widget build(BuildContext context) {
     DeviceConfig _device = DeviceConfig();
@@ -34,7 +40,7 @@ class TopWeatherWidget extends StatelessWidget {
               height: 20,
             ),
             Text(
-              '19',
+              '${ApiData.celcius.floor()}',
               style: TextStyle(
                   color: Colors.white,
                   letterSpacing: -5,

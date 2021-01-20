@@ -3,26 +3,29 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+class Weather {
+  final Map<Current, dynamic> current;
+  Weather({this.current});
+}
+
+class Current {
+  final String temp_c;
+  final String isDay;
+
+  Current({this.temp_c, this.isDay});
+}
+
 class ApiData {
   static String locationKey = "Default";
   static String city = "Default";
+  static double celcius = 0.0;
+  static String apiKey = 'bab4038cddf142a7b87133900202712';
+
+  static String endpointCurrentWeather =
+      'https://api.weatherapi.com/v1/current.json?';
 }
 
-class ApiManager {
-  String apiKey = 'I98kGug6BOLAVHrTpnmEEAG0WkkAHX7F';
-  String endpointLocationKey =
-      'http://dataservice.accuweather.com/locations/v1/cities/search';
-
-  void getLocationKey(String city) async {
-    var request = await http.get('$endpointLocationKey?apikey=$apiKey&q=$city');
-    if (request.statusCode == 200) {
-      List response = jsonDecode(request.body);
-      ApiData.locationKey = response.map((a) => a).last['Key'];
-    } else {
-      print('There was a error, Status Code is ${request.statusCode}');
-    }
-  }
-}
+class ApiManager {}
 
 class ApiCaller extends StatefulWidget {
   @override
@@ -32,24 +35,78 @@ class ApiCaller extends StatefulWidget {
 class _ApiCallerState extends State<ApiCaller> {
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> _formState = GlobalKey<FormState>();
-    ApiManager api = ApiManager();
+    Future getLocationKey(String city) async {
+      var request = await http.get(
+          '${ApiData.endpointCurrentWeather}key=${ApiData.apiKey}&q=$city');
+      if (request != null) {
+        Map response = await jsonDecode(request.body);
+        var result = response['current']['temp_c'];
+        setState(() {
+          ApiData.celcius = result;
+          print(ApiData.locationKey);
+        });
+      } else {
+        print(
+            'There was an error occured while requesting the server for location key, Status Code is ${request.statusCode}');
+      }
+    }
+
+    // get weather forcecast
+    // void getWeatherFromLocationKey() async {
+    //   var request = await http.get(
+    //       '$endpointCurrentCondition${ApiData.locationKey}/?apikey=$apiKey');
+    //   List response = jsonDecode(request.body)[0];
+
+    //   if (request.statusCode == 200) {
+    //     print(response);
+    //   } else {
+    //     print(
+    //         'There was an error occured while request the server for current conditions, Status Code is ${request.statusCode}');
+    //   }
+    // }
+
+    TextEditingController _searchCityController = TextEditingController();
     return Center(
       child: Column(
         children: [
+          SizedBox(
+            height: 50,
+          ),
           TextField(
-            onSubmitted: (val) => setState(() => ApiData.city = val),
+            controller: _searchCityController,
+            decoration: InputDecoration(hintText: 'enter your city name'),
+          ),
+          SizedBox(
+            height: 15,
           ),
           RaisedButton(
             child: Text('submit'),
-            onPressed: () => setState(() async {
-              api.getLocationKey('${ApiData.city}');
-              Timer.periodic(Duration(seconds: 3), (a) {});
+            onPressed: () => setState(() {
+              ApiData.city = _searchCityController.text;
+              getLocationKey(ApiData.city);
+              //  getWeatherFromLocationKey();
             }),
           ),
-          Text('${ApiData.locationKey}'),
+          SizedBox(
+            height: 60,
+          ),
+          Text(
+            'Todays Weather in ${ApiData.city}',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            '${ApiData.celcius.floor()}',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+              color: Colors.blueAccent,
+            ),
+          ),
         ],
       ),
-    );{}
+    );
   }
 }
