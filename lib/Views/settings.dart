@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/core/services/api_manger.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  bool onLoading = false;
   TextEditingController _searchCityController = TextEditingController();
   Future getLocationKey(String city) async {
     var request = await http
@@ -32,102 +34,124 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-        child: Material(
-          color: Colors.transparent,
-          child: Center(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 8,
-                    spreadRadius: 05,
-                    offset: Offset(1, 4),
-                  ),
-                ],
-              ),
-              height: 400,
-              width: 350,
-              child: Column(
-                children: [
-                  spacer(15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        child: buildIcon(Icons.arrow_back_ios_outlined),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      buildIcon(Icons.settings),
-                      SizedBox(
-                        width: 20,
-                      ),
-                    ],
-                  ),
-                  spacer(10),
-                  ListTile(
-                    leading: Icon(
-                      Icons.location_pin,
-                      size: 30,
-                      color: Color.fromRGBO(138, 104, 236, 1),
-                    ),
-                    title: Card(
-                      elevation: 05,
-                      child: TextField(
-                        controller: _searchCityController,
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          hintText: 'Location',
-                          enabledBorder: InputBorder.none,
+        child: onLoading == true
+            ? Container(
+                color: Colors.transparent,
+                height: 100,
+                width: 100,
+                child: SpinKitWave(
+                  color: Colors.white,
+                  duration: Duration(seconds: 3),
+                ))
+            : Material(
+                color: Colors.transparent,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 8,
+                          spreadRadius: 05,
+                          offset: Offset(1, 4),
                         ),
-                      ),
+                      ],
                     ),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        size: 30,
-                        color: Color.fromRGBO(138, 104, 236, 1),
-                      ),
-                      onPressed: () async {
-                        try {
-                          await getLocationKey('${_searchCityController.text}');
-                          var _temproryCity = _searchCityController.text;
-
-                          Timer(Duration(seconds: 3), () {
-                            print(ApiData.celcius);
-                            setState(() {
-                              ApiData.city = _temproryCity.toUpperCase();
-                            });
-                          });
-                        } catch (e) {
-                          print('its an error $e');
-                          showBottomSheet(
-                              context: context,
-                              builder: (context) => Container(
-                                    child: Text(e),
-                                  ));
-                        }
-                      },
+                    height: 400,
+                    width: 350,
+                    child: Column(
+                      children: [
+                        spacer(15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              child: buildIcon(Icons.arrow_back_ios_outlined),
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            buildIcon(Icons.settings),
+                            SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        ),
+                        spacer(5),
+                        Text(
+                          'sindh is preferable state by developer',
+                          style: TextStyle(
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 13,
+                            color: Colors.black.withOpacity(.4),
+                          ),
+                        ),
+                        spacer(5),
+                        ListTile(
+                          leading: Icon(
+                            Icons.location_pin,
+                            size: 30,
+                            color: Color.fromRGBO(138, 104, 236, 1),
+                          ),
+                          title: Card(
+                            elevation: 05,
+                            child: TextField(
+                              controller: _searchCityController,
+                              showCursor: false,
+                              decoration: InputDecoration(
+                                hintText: 'Location',
+                                enabledBorder: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(
+                              Icons.search,
+                              size: 30,
+                              color: Color.fromRGBO(138, 104, 236, 1),
+                            ),
+                            onPressed: () async {
+                              try {
+                                await getLocationKey(
+                                    '${_searchCityController.text}');
+                                var _temproryCity = _searchCityController.text;
+                                onLoading = true;
+                                Timer(Duration(seconds: 3), () {
+                                  print(ApiData.celcius);
+                                  setState(() {
+                                    onLoading = false;
+                                    ApiData.city = _temproryCity.toUpperCase();
+                                    Navigator.pop(context);
+                                  });
+                                });
+                              } catch (e) {
+                                print('its an error $e');
+                                showBottomSheet(
+                                    context: context,
+                                    builder: (context) => Container(
+                                          child: Text(e),
+                                        ));
+                              }
+                            },
+                          ),
+                        ),
+                        buildOption("Remind me when its Rainy Tommorrow", null),
+                        spacer(10),
+                        buildIcon(
+                          Icons.nightlight_round,
+                        ),
+                        spacer(10),
+                        buildOption("Show me Prayer times", null),
+                        SizedBox(height: 10),
+                        buildOption("remind me when its prayer time", null)
+                      ],
                     ),
                   ),
-                  buildOption("Remind me when its Rainy Tommorrow", null),
-                  spacer(10),
-                  buildIcon(
-                    Icons.nightlight_round,
-                  ),
-                  spacer(10),
-                  buildOption("Show me Prayer times", null),
-                  SizedBox(height: 10),
-                  buildOption("remind me when its prayer time", null)
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
       );
 
   SizedBox spacer(double height) => SizedBox(height: height);
