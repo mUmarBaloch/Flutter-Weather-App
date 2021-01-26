@@ -47,7 +47,9 @@ class _TopWeatherWidgetState extends State<TopWeatherWidget> {
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'cloudy',
+              ForecastData.forecast == null
+                  ? 'default'
+                  : ForecastData.forecast[0]["day"]["condition"]["text"],
               style: TextStyle(
                   color: Colors.white,
                   letterSpacing: 0.2,

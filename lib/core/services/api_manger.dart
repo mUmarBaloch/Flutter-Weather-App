@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:weather_app/core/data/weather_data.dart';
 
 Future<void> getForecast(String city, int days) async {
   final apiKey = 'bab4038cddf142a7b87133900202712';
@@ -7,10 +8,10 @@ Future<void> getForecast(String city, int days) async {
       'http://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$city&days=$days');
   if (result.statusCode == 200) {
     Map body = jsonDecode(result.body);
-    List forecast = body['forecast']['forecastday'];
+    ForecastData.forecast = body['forecast']['forecastday'];
     print('              WEATHER FORECAST OF ${city.toUpperCase()}\n');
     for (num i = 0; i < days; i++) {
-      Map tempData = forecast[i];
+      Map tempData = ForecastData.forecast[i];
       print('Date of Forecast : ${tempData["date"]} \n'
           '  Day status   : ${tempData["day"]["condition"]["text"]}\n'
           '  Minimum temprature : ${tempData["day"]["mintemp_c"]}\n'
