@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/core/data/api_data.dart';
 import 'package:weather_app/core/device_config.dart';
 import 'package:weather_app/core/services/api_manger.dart';
 import 'package:weather_app/models/weather_model.dart';
@@ -31,7 +32,7 @@ class _TopWeatherWidgetState extends State<TopWeatherWidget> {
                   context: context,
                   builder: (context) => Settings()),
               child: Text(
-                '${ApiData.city}',
+                '${WeatherData.city}',
                 style: TextStyle(
                     color: Colors.white, letterSpacing: 0.5, fontSize: 18),
               ),
@@ -40,7 +41,7 @@ class _TopWeatherWidgetState extends State<TopWeatherWidget> {
               height: 20,
             ),
             Text(
-              '${ApiData.celcius.floor()}',
+              '${WeatherData.celcius.floor()}',
               style: TextStyle(
                   color: Colors.white,
                   letterSpacing: -5,

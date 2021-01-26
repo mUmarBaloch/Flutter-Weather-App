@@ -22,12 +22,17 @@ class PredictionCard extends StatelessWidget {
         margin: EdgeInsets.symmetric(
           vertical: 10,
         ),
-        height: 120,
+        height: 130,
         decoration: predictionCardDecoration,
         width: 100,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'Today',
+              style: TextStyle(
+                  color: Colors.white, fontSize: 15, letterSpacing: 1),
+            ),
             Text(
               '$temprature',
               style: TextStyle(
@@ -40,7 +45,7 @@ class PredictionCard extends StatelessWidget {
               style: TextStyle(
                   color: Colors.white, fontSize: 15, letterSpacing: 1),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -48,7 +53,8 @@ class PredictionCard extends StatelessWidget {
                 Column(
                   children: [
                     Image(
-                      image: AssetImage('assets/rainIcon.png'),
+                      image: AssetImage('assets/windIcon.png'),
+                      width: 20,
                     ),
                     Text(
                       '$rainChances%',

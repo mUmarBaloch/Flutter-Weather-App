@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/core/data/api_data.dart';
 import 'package:weather_app/core/services/api_manger.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -15,15 +16,15 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   bool onLoading = false;
   TextEditingController _searchCityController = TextEditingController();
-  Future getLocationKey(String city) async {
+  Future getCurrentWeather(String city) async {
     var request = await http
         .get('${ApiData.endpointCurrentWeather}key=${ApiData.apiKey}&q=$city');
     if (request != null) {
       Map response = await jsonDecode(request.body);
       var result = response['current']['temp_c'];
       setState(() {
-        ApiData.celcius = result;
-        print(ApiData.locationKey);
+        WeatherData.celcius = result;
+        print(WeatherData.locationKey);
       });
     } else {
       print(
@@ -81,7 +82,7 @@ class _SettingsState extends State<Settings> {
                         ),
                         spacer(5),
                         Text(
-                          'sindh is preferable state by developer',
+                          'Capital cities are prefered due to beta version',
                           style: TextStyle(
                             letterSpacing: 1,
                             fontWeight: FontWeight.w400,
@@ -115,18 +116,20 @@ class _SettingsState extends State<Settings> {
                             ),
                             onPressed: () async {
                               try {
-                                await getLocationKey(
+                                await getCurrentWeather(
                                     '${_searchCityController.text}');
                                 var _temproryCity = _searchCityController.text;
+                                WeatherData.city = _temproryCity.toUpperCase();
                                 onLoading = true;
                                 Timer(Duration(seconds: 3), () {
-                                  print(ApiData.celcius);
+                                  print(WeatherData.celcius);
                                   setState(() {
                                     onLoading = false;
-                                    ApiData.city = _temproryCity.toUpperCase();
                                     Navigator.pop(context);
                                   });
                                 });
+
+                                getForecast(WeatherData.city, 3);
                               } catch (e) {
                                 print('its an error $e');
                                 showBottomSheet(

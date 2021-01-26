@@ -13,13 +13,3 @@ class SunDetails {
 
   SunDetails({this.city, this.sunriseTime, this.sunsetTime});
 }
-
-final prayerName = ['FAJR', 'DHUR', 'ASAR', 'MGHRIB', 'ISHA'];
-
-final prayerBg = [
-  'fajr.jpg',
-  'dhur.jpeg',
-  'asar.jpg',
-  'maghrib.jpg',
-  'isha.jpg'
-];

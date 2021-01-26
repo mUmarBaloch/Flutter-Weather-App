@@ -5,7 +5,7 @@ class PrayerCard extends StatelessWidget {
   final prayerName;
   final prayerTime;
   final prayerBg;
-  final timeNow = DateTime.now().hour - 12;
+  final timeNow = 12 - DateTime.now().hour;
   PrayerCard({this.prayerName, this.prayerTime, this.prayerBg});
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class PrayerCard extends StatelessWidget {
                     '$prayerName',
                     style: TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         letterSpacing: 1),
                   ),
                 ),

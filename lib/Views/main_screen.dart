@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
+import 'package:weather_app/core/data/constants.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/models/prayer_models.dart';
 import 'package:weather_app/models/prediction_weather_model.dart';
-import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/views/Widgets/top_weather_widget.dart';
 
 import 'Widgets/prayer_card.dart';
@@ -48,7 +47,7 @@ class PredictionCardContainer extends StatelessWidget {
         ),
         itemCount: prediction.length,
       ),
-      height: _device.height * 0.22,
+      height: _device.height * 0.25,
       decoration: cardDecoration,
     );
   }
