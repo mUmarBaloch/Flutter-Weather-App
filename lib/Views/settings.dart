@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_app/core/data/api_data.dart';
 import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/services/api_manger.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -17,21 +14,6 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   bool onLoading = false;
   TextEditingController _searchCityController = TextEditingController();
-  Future getCurrentWeather(String city) async {
-    var request = await http
-        .get('${ApiData.endpointCurrentWeather}key=${ApiData.apiKey}&q=$city');
-    if (request != null) {
-      Map response = await jsonDecode(request.body);
-      var result = response['current']['temp_c'];
-      setState(() {
-        WeatherData.celcius = result;
-        print(WeatherData.locationKey);
-      });
-    } else {
-      print(
-          'There was an error occured while requesting the server for location key, Status Code is ${request.statusCode}');
-    }
-  }
 
   @override
   Widget build(BuildContext context) => BackdropFilter(
@@ -117,20 +99,29 @@ class _SettingsState extends State<Settings> {
                             ),
                             onPressed: () async {
                               try {
-                                await getCurrentWeather(
-                                    '${_searchCityController.text}');
-                                var _temproryCity = _searchCityController.text;
-                                WeatherData.city = _temproryCity.toUpperCase();
-                                onLoading = true;
-                                Timer(Duration(seconds: 3), () {
+                                setState(() async {
+                                  onLoading = true;
+                                  dynamic _weather = await getCurrentWeather(
+                                      '${_searchCityController.text}');
+                                  WeatherData.celcius = _weather;
                                   print(WeatherData.celcius);
-                                  setState(() {
+                                  var _temproryCity =
+                                      _searchCityController.text;
+                                  WeatherData.city =
+                                      _temproryCity.toUpperCase();
+
+                                  dynamic _forecast =
+                                      await getForecast(WeatherData.city, 3);
+
+                                  ForecastData.forecast = _forecast;
+                                  print(ForecastData.forecast);
+                                  Timer(Duration(seconds: 3), () {
+                                    print(WeatherData.celcius);
+
                                     onLoading = false;
                                     Navigator.pop(context);
                                   });
                                 });
-
-                                getForecast(WeatherData.city, 3);
                               } catch (e) {
                                 print('its an error $e');
                                 showBottomSheet(
