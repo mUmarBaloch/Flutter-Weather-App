@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/core/data/api_data.dart';
+import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/core/services/api_manger.dart';
-import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/views/settings.dart';
 
 class TopWeatherWidget extends StatefulWidget {

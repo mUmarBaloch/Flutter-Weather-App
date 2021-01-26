@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/core/data/api_data.dart';
+import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/services/api_manger.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 

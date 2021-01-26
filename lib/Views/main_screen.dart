@@ -14,9 +14,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  @override
   DeviceConfig _device = DeviceConfig();
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: mainScreenDecoration,
@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
         SizedBox(height: _device.height * 0.05),
         PredictionCardContainer(),
         SizedBox(height: _device.height * 0.03),
-        prayerCardContainer(),
+        PrayerCardContainer(),
       ]),
     );
   }
@@ -53,9 +53,9 @@ class PredictionCardContainer extends StatelessWidget {
   }
 }
 
-class prayerCardContainer extends StatelessWidget {
+class PrayerCardContainer extends StatelessWidget {
+  final DeviceConfig _device = DeviceConfig();
   @override
-  DeviceConfig _device = DeviceConfig();
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.symmetric(horizontal: 10),
         child: Column(

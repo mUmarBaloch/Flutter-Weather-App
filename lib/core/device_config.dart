@@ -12,7 +12,7 @@ class DeviceConfig {
 class DeviceConfigQuery {
   var height;
   var width;
-  DeviceConfigInit(BuildContext context) {
+  deviceConfigInit(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
   }
