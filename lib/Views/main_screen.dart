@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/core/data/constants.dart';
+import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/device_config.dart';
 import 'package:weather_app/models/prediction_weather_model.dart';
 import 'package:weather_app/views/Widgets/top_weather_widget.dart';
@@ -31,25 +32,49 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class PredictionCardContainer extends StatelessWidget {
+class PredictionCardContainer extends StatefulWidget {
+  @override
+  _PredictionCardContainerState createState() =>
+      _PredictionCardContainerState();
+}
+
+class _PredictionCardContainerState extends State<PredictionCardContainer> {
   final DeviceConfig _device = DeviceConfig();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => PredictionCard(
-          temprature: prediction[index].temprature,
-          status: prediction[index].status,
-          rainChances: prediction[index].rainChances,
-          humidity: prediction[index].humidity,
-        ),
-        itemCount: prediction.length,
-      ),
-      height: _device.height * 0.25,
-      decoration: cardDecoration,
-    );
+    return ForecastData.forecast != null
+        ? Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => PredictionCard(
+                temprature: ForecastData.forecast[index]['day']['mintemp_c'],
+                status: ForecastData.forecast[index]['day']['condition']
+                    ['text'],
+                rainChances: ForecastData.forecast[index]['day']['maxwind_mph'],
+                humidity: ForecastData.forecast[index]['day']['abghumidity'],
+              ),
+              itemCount: ForecastData.forecast.length,
+            ),
+            height: _device.height * 0.25,
+            decoration: cardDecoration,
+          )
+        : Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => PredictionCard(
+                temprature: prediction[index].temprature,
+                status: prediction[index].status,
+                rainChances: prediction[index].rainChances,
+                humidity: prediction[index].humidity,
+              ),
+              itemCount: prediction.length,
+            ),
+            height: _device.height * 0.25,
+            decoration: cardDecoration,
+          );
   }
 }
 

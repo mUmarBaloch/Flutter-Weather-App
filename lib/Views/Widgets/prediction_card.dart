@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 
-class PredictionCard extends StatelessWidget {
-  final int temprature;
+class PredictionCard extends StatefulWidget {
+  final num temprature;
   final String status;
   final num humidity;
   final num rainChances;
@@ -14,6 +14,11 @@ class PredictionCard extends StatelessWidget {
     this.rainChances,
   });
 
+  @override
+  _PredictionCardState createState() => _PredictionCardState();
+}
+
+class _PredictionCardState extends State<PredictionCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,16 +39,23 @@ class PredictionCard extends StatelessWidget {
                   color: Colors.white, fontSize: 15, letterSpacing: 1),
             ),
             Text(
-              '$temprature',
+              '${widget.temprature.floor()}',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40,
               ),
             ),
             Text(
-              '$status',
+              '${widget.status}',
+              textAlign: widget.status.length > 14 ? TextAlign.center : null,
               style: TextStyle(
-                  color: Colors.white, fontSize: 15, letterSpacing: 1),
+                color: Colors.white,
+                fontSize: widget.status.length > 14 ? 9 : 15,
+                fontWeight: widget.status.length > 14
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+                letterSpacing: 1,
+              ),
             ),
             SizedBox(height: 10),
             Row(
@@ -57,7 +69,7 @@ class PredictionCard extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      '$rainChances%',
+                      '${widget.rainChances}%',
                       style: TextStyle(
                           color: Colors.white, fontSize: 15, letterSpacing: 1),
                     ),
@@ -68,7 +80,7 @@ class PredictionCard extends StatelessWidget {
                   children: [
                     Image.asset('assets/rainDropIcon.png'),
                     Text(
-                      '$humidity%',
+                      '${widget.humidity}%',
                       style: TextStyle(
                           color: Colors.white, fontSize: 15, letterSpacing: 1),
                     ),
