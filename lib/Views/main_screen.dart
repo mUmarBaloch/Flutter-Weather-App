@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/core/data/constants.dart';
 import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/models/prediction_weather_model.dart';
 import 'package:weather_app/views/Widgets/top_weather_widget.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'Widgets/prayer_card.dart';
 import 'Widgets/prediction_card.dart';
 
@@ -39,43 +39,47 @@ class PredictionCardContainer extends StatefulWidget {
 }
 
 class _PredictionCardContainerState extends State<PredictionCardContainer> {
-  final DeviceConfig _device = DeviceConfig();
+  DeviceConfig _device;
+  @override
+  void initState() {
+    _device = DeviceConfig();
+    super.initState();
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return ForecastData.forecast != null
-        ? Container(
+  Widget build(BuildContext context) => ValueListenableBuilder<String>(
+      valueListenable: WeatherData.city,
+      builder: (context, value, child) {
+        print(value);
+        if (value.isNotEmpty) {
+          return Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => PredictionCard(
+                day: days[index],
                 temprature: ForecastData.forecast[index]['day']['mintemp_c'],
                 status: ForecastData.forecast[index]['day']['condition']
                     ['text'],
-                rainChances: ForecastData.forecast[index]['day']['maxwind_mph'],
-                humidity: ForecastData.forecast[index]['day']['abghumidity'],
+                maxWind: ForecastData.forecast[index]['day']['maxwind_mph'],
+                humidity: ForecastData.forecast[index]['day']['avghumidity'],
               ),
-              itemCount: ForecastData.forecast.length,
-            ),
-            height: _device.height * 0.25,
-            decoration: cardDecoration,
-          )
-        : Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => PredictionCard(
-                temprature: prediction[index].temprature,
-                status: prediction[index].status,
-                rainChances: prediction[index].rainChances,
-                humidity: prediction[index].humidity,
-              ),
-              itemCount: prediction.length,
+              itemCount: days.length,
             ),
             height: _device.height * 0.25,
             decoration: cardDecoration,
           );
-  }
+        } else {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            height: _device.height * 0.25,
+            decoration: cardDecoration,
+            child: SpinKitRotatingCircle(
+              color: Colors.deepPurpleAccent,
+            ),
+          );
+        }
+      });
 }
 
 class PrayerCardContainer extends StatelessWidget {

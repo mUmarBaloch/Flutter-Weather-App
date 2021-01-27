@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 
 class PredictionCard extends StatefulWidget {
+  final String day;
   final num temprature;
   final String status;
   final num humidity;
-  final num rainChances;
+  final num maxWind;
 
   const PredictionCard({
+    this.day,
     this.temprature,
     this.status,
     this.humidity,
-    this.rainChances,
+    this.maxWind,
   });
 
   @override
@@ -34,7 +36,7 @@ class _PredictionCardState extends State<PredictionCard> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Today',
+              '${widget.day}',
               style: TextStyle(
                   color: Colors.white, fontSize: 15, letterSpacing: 1),
             ),
@@ -57,7 +59,7 @@ class _PredictionCardState extends State<PredictionCard> {
                 letterSpacing: 1,
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -69,7 +71,7 @@ class _PredictionCardState extends State<PredictionCard> {
                       width: 20,
                     ),
                     Text(
-                      '${widget.rainChances}%',
+                      '${widget.maxWind}',
                       style: TextStyle(
                           color: Colors.white, fontSize: 15, letterSpacing: 1),
                     ),
@@ -78,7 +80,10 @@ class _PredictionCardState extends State<PredictionCard> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset('assets/rainDropIcon.png'),
+                    Image(
+                      image: AssetImage('assets/rainDropIcon.png'),
+                      width: 20,
+                    ),
                     Text(
                       '${widget.humidity}%',
                       style: TextStyle(

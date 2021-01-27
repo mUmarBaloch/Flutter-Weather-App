@@ -51,7 +51,6 @@ class _SettingsState extends State<Settings> {
                       ),
                       onLoading == true
                           ? Container(
-                              color: Colors.transparent,
                               height: 50,
                               width: 50,
                               child: SpinKitFadingCircle(
@@ -106,16 +105,18 @@ class _SettingsState extends State<Settings> {
 
                           setState(() {
                             WeatherData.celcius = _weather;
+                            WeatherData.changeCity('$_weather');
                             print(WeatherData.celcius);
                             var _temproryCity = _searchCityController.text;
-                            WeatherData.city = _temproryCity.toUpperCase();
+                            WeatherData.changeCity(_temproryCity.toUpperCase());
                           });
 
                           dynamic _forecast =
-                              await getForecast(WeatherData.city, 3);
+                              await getForecast(WeatherData.city.value, 3);
                           setState(() {
                             ForecastData.forecast = _forecast;
                             print(ForecastData.forecast);
+                            print(WeatherData.city.value);
                             Timer(Duration(seconds: 2), () {});
                             onLoading = false;
                           });

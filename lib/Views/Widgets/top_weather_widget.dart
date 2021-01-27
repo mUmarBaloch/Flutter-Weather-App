@@ -24,19 +24,40 @@ class _TopWeatherWidgetState extends State<TopWeatherWidget> {
       child: SafeArea(
         child: Column(
           children: [
-            InkWell(
-              onTap: () => showDialog(
-                  barrierDismissible: true,
-                  context: context,
-                  builder: (context) => Settings()),
-              child: Text(
-                '${WeatherData.city}',
-                style: TextStyle(
-                    color: Colors.white, letterSpacing: 0.5, fontSize: 18),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: _device.width * .14,
+                ),
+                Text(
+                  '${WeatherData.city.value}',
+                  style: TextStyle(
+                      color: Colors.white,
+                      letterSpacing: 0.5,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.deepPurpleAccent,
+                    icon: Icon(
+                      Icons.search,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                    onPressed: () => showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (context) => Settings()),
+                  ),
+                )
+              ],
             ),
             SizedBox(
-              height: 20,
+              height: 0,
             ),
             Text(
               '${WeatherData.celcius.floor()}',
