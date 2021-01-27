@@ -15,6 +15,7 @@ class _SettingsState extends State<Settings> {
   bool onLoading = false;
   TextEditingController _searchCityController = TextEditingController();
 
+  //fixed #2
   @override
   Widget build(BuildContext context) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
