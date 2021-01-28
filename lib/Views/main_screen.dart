@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/core/data/constants.dart';
 import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/device_config.dart';
+import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/views/Widgets/top_weather_widget.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'Widgets/prayer_card.dart';
@@ -14,21 +17,56 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
+StreamController weatherStreamController = StreamController();
+cityStream() {
+  if (WeatherData.city != null) {
+    weatherStreamController.sink.add(WeatherData.city);
+  } else {
+    weatherStreamController.sink.addError(WeatherData.city);
+  }
+}
+
 class _MainScreenState extends State<MainScreen> {
   DeviceConfig _device = DeviceConfig();
+  //fixed #3
+
+  @override
+  void dispose() {
+    weatherStreamController.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: mainScreenDecoration,
-      child: Column(children: <Widget>[
-        TopWeatherWidget(),
-        SizedBox(height: _device.height * 0.05),
-        PredictionCardContainer(),
-        SizedBox(height: _device.height * 0.03),
-        PrayerCardContainer(),
-      ]),
-    );
+    return StreamBuilder(
+        stream: weatherStreamController.stream,
+        builder: (context, snapshot) {
+          if (snapshot.data == null) {
+            return Container(
+              decoration: mainScreenDecoration,
+              child: Column(children: <Widget>[
+                TopWeatherWidget(),
+                SizedBox(height: _device.height * 0.05),
+                Text('Please add city to see forecast'),
+                SizedBox(height: _device.height * 0.03),
+                PrayerCardContainer(),
+              ]),
+            );
+          }
+          if (snapshot.hasError) {
+            return Text('there was an error in forecast');
+          } else
+            return Container(
+              decoration: mainScreenDecoration,
+              child: Column(children: <Widget>[
+                TopWeatherWidget(),
+                SizedBox(height: _device.height * 0.05),
+                PredictionCardContainer(),
+                SizedBox(height: _device.height * 0.03),
+                PrayerCardContainer(),
+              ]),
+            );
+        });
   }
 }
 
