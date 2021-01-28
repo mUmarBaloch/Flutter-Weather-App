@@ -47,14 +47,55 @@ class _MainScreenState extends State<MainScreen> {
               child: Column(children: <Widget>[
                 TopWeatherWidget(),
                 SizedBox(height: _device.height * 0.05),
-                Text('Please add city to see forecast'),
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    height: _device.height * 0.25,
+                    decoration: cardDecoration,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SpinKitDualRing(
+                            color: Colors.deepPurpleAccent,
+                            size: 20,
+                          ),
+                          Text(
+                              'Please add city by click on search icon at top'),
+                        ],
+                      ),
+                    )),
                 SizedBox(height: _device.height * 0.03),
                 PrayerCardContainer(),
               ]),
             );
           }
           if (snapshot.hasError) {
-            return Text('there was an error in forecast');
+            return Container(
+              decoration: mainScreenDecoration,
+              child: Column(children: <Widget>[
+                TopWeatherWidget(),
+                SizedBox(height: _device.height * 0.05),
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    height: _device.height * 0.25,
+                    decoration: cardDecoration,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SpinKitDualRing(
+                            color: Colors.redAccent,
+                            size: 20,
+                          ),
+                          Text(
+                              'Oops! There was an error, please create an issue on github'),
+                        ],
+                      ),
+                    )),
+                SizedBox(height: _device.height * 0.03),
+                PrayerCardContainer(),
+              ]),
+            );
           } else
             return Container(
               decoration: mainScreenDecoration,
