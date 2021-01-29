@@ -6,9 +6,7 @@ import 'package:weather_app/constants.dart';
 import 'package:weather_app/core/data/constants.dart';
 import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/views/Widgets/top_weather_widget.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'Widgets/prayer_card.dart';
 import 'Widgets/prediction_card.dart';
 

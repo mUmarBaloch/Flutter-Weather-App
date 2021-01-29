@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/views/main_screen.dart';
 import 'package:weather_app/core/data/weather_data.dart';
-import 'package:weather_app/core/services/api_manger.dart';
+import 'package:weather_app/core/services/weather_api_manger.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Settings extends StatefulWidget {
@@ -98,10 +98,13 @@ class _SettingsState extends State<Settings> {
                         color: Color.fromRGBO(138, 104, 236, 1),
                       ),
                       onPressed: () async {
+                        var _api = WeatherApiManager();
                         try {
-                          onLoading = true;
+                          setState(() {
+                            onLoading = true;
+                          });
 
-                          dynamic _weather = await getCurrentWeather(
+                          dynamic _weather = await _api.getCurrentWeather(
                               '${_searchCityController.text}');
 
                           setState(() {
@@ -113,7 +116,7 @@ class _SettingsState extends State<Settings> {
                           });
 
                           dynamic _forecast =
-                              await getForecast(WeatherData.city.value, 3);
+                              await _api.getForecast(WeatherData.city.value, 3);
                           setState(() {
                             cityStream();
                             ForecastData.forecast = _forecast;
@@ -125,11 +128,6 @@ class _SettingsState extends State<Settings> {
                         } catch (e) {
                           print(
                               'Error on Settings.dart=>Search button Says :- $e');
-                          showBottomSheet(
-                              context: context,
-                              builder: (context) => Container(
-                                    child: Text(e),
-                                  ));
                         }
                       },
                     ),
