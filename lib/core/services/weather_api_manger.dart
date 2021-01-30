@@ -4,12 +4,12 @@ import 'package:weather_app/core/data/api_data.dart';
 import 'package:weather_app/core/templates/weather_api_template.dart';
 
 class WeatherApiManager extends WeatherApiData implements WeatherApiTemplate {
-  Future<num> getCurrentWeather(String city) async {
-    var request = await http
-        .get('$weatherApiLink${currentWeatherEndPoint}key=$apiKey&q=$city');
+  Future<num> getCurrentWeather(String city, String country) async {
+    var request = await http.get(
+        '$weatherApiLinkCurrentWeather/current?city=Mirpur%20khas&country=pk&key=febd9f38cad4483b90f90e87943b3ecf');
     if (request != null) {
       Map response = await jsonDecode(request.body);
-      var result = response['current']['temp_c'];
+      var result = response['data'][0]['temp'];
       return result;
     } else {
       print(
@@ -19,8 +19,8 @@ class WeatherApiManager extends WeatherApiData implements WeatherApiTemplate {
   }
 
   Future<List> getForecast(String city, int days) async {
-    var response = await http
-        .get('${weatherApiLink}forecast.json?key=$apiKey&q=$city&days=$days');
+    var response = await http.get(
+        '${weatherApiLinkForecast}forecast.json?key=$apiKeyForecast&q=$city&days=$days');
     if (response.statusCode == 200) {
       Map body = jsonDecode(response.body);
       var result = body['forecast']['forecastday'];

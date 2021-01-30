@@ -105,7 +105,7 @@ class _SettingsState extends State<Settings> {
                           });
 
                           dynamic _weather = await _api.getCurrentWeather(
-                              '${_searchCityController.text}');
+                              '${_searchCityController.text}', 'pk');
 
                           setState(() {
                             WeatherData.celcius = _weather;
