@@ -14,12 +14,13 @@ final BoxDecoration mainScreenDecoration = BoxDecoration(
 );
 final BoxDecoration predictionCardDecoration = BoxDecoration(
     gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          Color.fromRGBO(138, 104, 236, 1),
-          Color.fromRGBO(170, 104, 236, 1),
-        ]),
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        Color.fromRGBO(53, 122, 224, 1),
+        Color.fromRGBO(104, 188, 236, 1),
+      ],
+    ),
     borderRadius: BorderRadius.circular(18),
     boxShadow: [
       BoxShadow(
