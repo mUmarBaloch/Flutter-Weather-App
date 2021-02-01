@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/core/data/weather_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/core/device_config.dart';
 import 'package:weather_app/views/settings.dart';
 
@@ -9,8 +9,22 @@ class TopWeatherWidget extends StatefulWidget {
 }
 
 class _TopWeatherWidgetState extends State<TopWeatherWidget> {
+  SharedPreferences _pref;
+  String city;
+  double temp;
+  String status;
+  init() async {
+    _pref = _pref != null ? _pref : await SharedPreferences.getInstance();
+    setState(() {
+      city = _pref.getString('cityName') ?? 'default';
+      temp = _pref.getDouble('temp') ?? 0.00;
+      status = _pref.getString('currentStatus') ?? 'default';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    init();
     DeviceConfig _device = DeviceConfig();
     return Container(
       height: MediaQuery.of(context).size.height * 0.35,
@@ -31,7 +45,7 @@ class _TopWeatherWidgetState extends State<TopWeatherWidget> {
                   width: _device.width * .14,
                 ),
                 Text(
-                  '${WeatherData.city.value}',
+                  '$city',
                   style: TextStyle(
                       color: Colors.white,
                       letterSpacing: 0.5,
@@ -60,7 +74,7 @@ class _TopWeatherWidgetState extends State<TopWeatherWidget> {
               height: 0,
             ),
             Text(
-              '${WeatherData.celcius.floor()}',
+              '${temp.floor()}',
               style: TextStyle(
                   color: Colors.white,
                   letterSpacing: -5,
@@ -68,9 +82,7 @@ class _TopWeatherWidgetState extends State<TopWeatherWidget> {
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              ForecastData.forecast != null
-                  ? ForecastData.forecast[0]['day']['condition']['text']
-                  : 'default',
+              '$status',
               style: TextStyle(
                   color: Colors.white,
                   letterSpacing: 0.2,

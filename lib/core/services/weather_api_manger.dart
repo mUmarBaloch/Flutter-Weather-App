@@ -6,7 +6,7 @@ import 'package:weather_app/core/templates/weather_api_template.dart';
 class WeatherApiManager extends WeatherApiData implements WeatherApiTemplate {
   Future<num> getCurrentWeather(String city, String country) async {
     var request = await http.get(
-        '$weatherApiLinkCurrentWeather/current?city=Mirpur%20khas&country=pk&key=febd9f38cad4483b90f90e87943b3ecf');
+        '$weatherApiLinkCurrentWeather/current?city=$city&country=pk&key=${super.apiKeyCurrentWeather}');
     if (request != null) {
       Map response = await jsonDecode(request.body);
       var result = response['data'][0]['temp'];

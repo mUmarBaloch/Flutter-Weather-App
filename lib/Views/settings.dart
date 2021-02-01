@@ -6,6 +6,7 @@ import 'package:weather_app/views/main_screen.dart';
 import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/services/weather_api_manger.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  SharedPreferences _pref;
   bool onLoading = false;
   TextEditingController _searchCityController = TextEditingController();
 
@@ -98,36 +100,46 @@ class _SettingsState extends State<Settings> {
                         color: Color.fromRGBO(138, 104, 236, 1),
                       ),
                       onPressed: () async {
-                        var _api = WeatherApiManager();
                         try {
+                          var _api = WeatherApiManager();
+
                           setState(() {
                             onLoading = true;
                           });
 
-                          dynamic _weather = await _api.getCurrentWeather(
+                          num _weather = await _api.getCurrentWeather(
                               '${_searchCityController.text}', 'pk');
 
                           setState(() {
-                            WeatherData.celcius = _weather;
+                            WeatherData.celcius = _weather.toDouble();
                             WeatherData.changeCity('$_weather');
-                            print(WeatherData.celcius);
+                            print(_weather);
                             var _temproryCity = _searchCityController.text;
                             WeatherData.changeCity(_temproryCity.toUpperCase());
                           });
 
                           dynamic _forecast =
                               await _api.getForecast(WeatherData.city.value, 3);
+                          _pref = await SharedPreferences.getInstance();
+                          await _pref.setString(
+                              'cityName', WeatherData.city.value);
+                          await _pref.setDouble('temp', _weather.toDouble());
                           setState(() {
                             cityStream();
                             ForecastData.forecast = _forecast;
                             print(ForecastData.forecast);
                             print(WeatherData.city.value);
                             Timer(Duration(seconds: 2), () {});
+                          });
+                          await _pref.setString(
+                              'currentStatus',
+                              ForecastData.forecast[0]['day']['condition']
+                                  ['text']);
+                          setState(() {
                             onLoading = false;
                           });
                         } catch (e) {
-                          print(
-                              'Error on Settings.dart=>Search button Says :- $e');
+                          print('the error is $e');
                         }
                       },
                     ),
