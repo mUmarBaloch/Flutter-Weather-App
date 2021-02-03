@@ -10,9 +10,9 @@ class TopWeatherWidget extends StatefulWidget {
 
 class _TopWeatherWidgetState extends State<TopWeatherWidget> {
   SharedPreferences _pref;
-  String city;
-  double temp;
-  String status;
+  String city = 'default';
+  double temp = 0.0;
+  String status = 'default';
   init() async {
     _pref = _pref != null ? _pref : await SharedPreferences.getInstance();
     setState(() {
