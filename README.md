@@ -2,16 +2,21 @@
   Flutter Weather App is an amazing app developed with Flutter, The Ui is properly arranged, and responsive. I totally intend to make this app fully functional working app, but for now this app is simply ui based app.
 
 
-## Features (some features will be implemented on next versions)
-
+## Features ( availble )
+- Current Weather
 - Weather forecast with city search,
+- Local Persistent with shared preferences
+- Uni page Ux
+
+## Features ( infuture )
+- bg image of same city with web scraping
+- dark mode
+- Local Persistent with Sqlite
 - rain alert (feature to alert user if rainy day tommorrow),
-- Muslims prayer times with current city,
-- prayer reminder (reminds when prayer time starts)
 - Uni page simple ui
 
 ## Design Preview
-
+  <center>(these are old)</center>
 <p align="center">
   <b> Main Screen</b>
   </p>
