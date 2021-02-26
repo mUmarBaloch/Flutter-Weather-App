@@ -1,4 +1,5 @@
 # Flutter-Weather-App
+new
   Flutter Weather App is an amazing app developed with Flutter, The Ui is properly arranged, and responsive. I totally intend to make this app fully functional working app, but for now this app is simply ui based app.
 
 

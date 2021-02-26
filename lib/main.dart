@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/views/main_screen.dart';
+
+import 'Views/main_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(accentColor: Colors.deepPurple),
       home: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         body: MainScreen(),
       ),
     );

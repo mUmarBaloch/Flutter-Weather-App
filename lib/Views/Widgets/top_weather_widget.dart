@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_app/Views/settings.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/views/settings.dart';
 
 class TopWeatherWidget extends StatefulWidget {
   @override

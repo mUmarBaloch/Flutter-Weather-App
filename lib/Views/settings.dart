@@ -2,11 +2,12 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_app/views/main_screen.dart';
 import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/services/weather_api_manger.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'main_screen.dart';
 
 class Settings extends StatefulWidget {
   @override
