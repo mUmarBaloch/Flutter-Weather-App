@@ -1,5 +1,5 @@
 # Flutter-Weather-App
-new
+  
   Flutter Weather App is an amazing app developed with Flutter, The Ui is properly arranged, and responsive. I totally intend to make this app fully functional working app, but for now this app is simply ui based app.
 
 
@@ -42,3 +42,6 @@ Recommended android version is 4.3 or >, Now you can build the project, and enjo
 Pull requests are welcome. For major/minor changes, like: Patterns/Architechtural/Logical/State management changes. Please open an issue first to discuss what you would like to change.
 
 _Please give a star to the repo_
+
+
+testing commit on linux kernal
