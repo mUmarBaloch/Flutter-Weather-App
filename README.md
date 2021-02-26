@@ -44,4 +44,4 @@ Pull requests are welcome. For major/minor changes, like: Patterns/Architechtura
 _Please give a star to the repo_
 
 
-testing commit on linux kernal
+testing commit on linux kernal on majaro
