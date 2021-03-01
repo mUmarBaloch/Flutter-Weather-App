@@ -40,7 +40,7 @@ class WeatherApiManager extends WeatherApiData implements WeatherApiTemplate {
   Future<dynamic> getHourlyForecast(
       String city, String country, int index) async {
     var response = await http.get(
-        '${weatherApiLinkForecast}forecast.json?key=$apiKeyForecast&q=$city&days=$days');
+        '${weatherApiLinkForecast}forecast.json?key=$apiKeyForecast&q=$city&days=1');
     if (response.statusCode == 200) {
       Map body = jsonDecode(response.body);
       return HourlyForecast.getDataFromApi(body, index);
