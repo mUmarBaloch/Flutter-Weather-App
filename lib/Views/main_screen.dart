@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_app/Views/Widgets/prayer_card_container_widget.dart';
+import 'package:weather_app/Views/Widgets/prediction_card.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/core/data/constants.dart';
 import 'package:weather_app/core/data/weather_data.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/views/Widgets/prediction_card.dart';
 import 'Widgets/top_weather_widget.dart';
 
 class MainScreen extends StatefulWidget {
