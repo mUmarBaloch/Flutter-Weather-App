@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/Views/Widgets/prayer_card.dart';
 import 'package:weather_app/core/data/constants.dart';
 import 'package:weather_app/core/device_config.dart';
-import 'package:weather_app/views/Widgets/prayer_card.dart';
 
 class PrayerCardContainerWidget extends StatelessWidget {
   final DeviceConfig _device = DeviceConfig();
