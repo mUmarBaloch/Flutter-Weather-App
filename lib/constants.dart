@@ -2,6 +2,11 @@
 
 import 'package:flutter/material.dart';
 
+final LinearGradient primaryGradient = LinearGradient(colors: [
+  Color.fromRGBO(53, 122, 224, 1),
+  Color.fromRGBO(104, 188, 236, 1),
+]);
+
 final BoxDecoration mainScreenDecoration = BoxDecoration(
   gradient: LinearGradient(
     begin: Alignment.topCenter,
