@@ -15,7 +15,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  SharedPreferences _pref;
+  SharedPreferences? _pref;
   bool onLoading = false;
   TextEditingController _searchCityController = TextEditingController();
 
@@ -122,9 +122,9 @@ class _SettingsState extends State<Settings> {
                           dynamic _forecast =
                               await _api.getForecast(WeatherData.city.value, 3);
                           _pref = await SharedPreferences.getInstance();
-                          await _pref.setString(
+                          await _pref?.setString(
                               'cityName', WeatherData.city.value);
-                          await _pref.setDouble('temp', _weather.toDouble());
+                          await _pref?.setDouble('temp', _weather.toDouble());
                           setState(() {
                             cityStream();
                             ForecastData.forecast = _forecast;
@@ -132,9 +132,9 @@ class _SettingsState extends State<Settings> {
                             print(WeatherData.city.value);
                             Timer(Duration(seconds: 2), () {});
                           });
-                          await _pref.setString(
+                          await _pref?.setString(
                               'currentStatus',
-                              ForecastData.forecast[0]['day']['condition']
+                              ForecastData.forecast?[0]['day']['condition']
                                   ['text']);
                           setState(() {
                             onLoading = false;

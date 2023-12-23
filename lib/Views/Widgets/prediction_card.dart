@@ -9,11 +9,11 @@ class PredictionCard extends StatefulWidget {
   final num maxWind;
 
   const PredictionCard({
-    this.day,
-    this.temprature,
-    this.status,
-    this.humidity,
-    this.maxWind,
+    required this.day,
+   required  this.temprature,
+   required  this.status,
+   required this.humidity,
+  required  this.maxWind,
   });
 
   @override

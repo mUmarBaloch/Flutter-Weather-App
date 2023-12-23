@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_sparkline/flutter_sparkline.dart';
+//import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/models/hourly_forcast_model.dart';
 
@@ -28,13 +28,15 @@ class HourlyForecastWidget extends StatelessWidget {
             height: 100,
             width: 300,
             padding: EdgeInsets.symmetric(vertical: 0),
-            child: Sparkline(
+            child:
+            //update this immediately
+             SizedBox(),/*Sparkline(
               lineGradient: primaryGradient,
               data: chartData(),
               pointsMode: PointsMode.all,
               pointSize: 7,
               sharpCorners: true,
-            ),
+            ),*/
           ),
           SizedBox(
             height: 10,

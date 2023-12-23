@@ -7,8 +7,8 @@ import 'package:weather_app/models/hourly_forcast_model.dart';
 class WeatherApiManager extends WeatherApiData implements WeatherApiTemplate {
   //getting current weather
   Future<num> getCurrentWeather(String city, String country) async {
-    var request = await http.get(
-        '$weatherApiLinkCurrentWeather/current?city=$city&country=pk&key=${super.apiKeyCurrentWeather}');
+    var request = await http.get(Uri.parse(
+        '$weatherApiLinkCurrentWeather/current?city=$city&country=pk&key=${super.apiKeyCurrentWeather}'));
     if (request != null) {
       Map response = await jsonDecode(request.body);
       var result = response['data'][0]['temp'];
@@ -22,8 +22,8 @@ class WeatherApiManager extends WeatherApiData implements WeatherApiTemplate {
 
 //getting forecast
   Future<List> getForecast(String city, int days) async {
-    var response = await http.get(
-        '${weatherApiLinkForecast}forecast.json?key=$apiKeyForecast&q=$city&days=$days');
+    var response = await http.get(Uri.parse(
+        '${weatherApiLinkForecast}forecast.json?key=$apiKeyForecast&q=$city&days=$days'));
     if (response.statusCode == 200) {
       Map body = jsonDecode(response.body);
       var result = body['forecast']['forecastday'];
@@ -39,8 +39,8 @@ class WeatherApiManager extends WeatherApiData implements WeatherApiTemplate {
 // either return HourlyForecast or String<Error>
   Future<dynamic> getHourlyForecast(
       String city, String country, int index) async {
-    var response = await http.get(
-        '${weatherApiLinkForecast}forecast.json?key=$apiKeyForecast&q=$city&days=1');
+    var response = await http.get(Uri.parse(
+        '${weatherApiLinkForecast}forecast.json?key=$apiKeyForecast&q=$city&days=1'));
     if (response.statusCode == 200) {
       Map body = jsonDecode(response.body);
       return HourlyForecast.getDataFromApi(body, index);

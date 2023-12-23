@@ -10,5 +10,5 @@ class WeatherData {
 }
 
 class ForecastData {
-  static List forecast;
+  static List? forecast;
 }

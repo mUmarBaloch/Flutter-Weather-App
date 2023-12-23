@@ -5,7 +5,7 @@ class PredictionWeather {
   final int humidity;
 
   PredictionWeather(
-      {this.temprature, this.status, this.rainChances, this.humidity});
+      {required this.temprature, required this.status, required this.rainChances, required this.humidity});
 }
 
 List<PredictionWeather> prediction = [

@@ -14,7 +14,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(accentColor: Colors.deepPurple),
+      theme: ThemeData(colorScheme:ColorScheme.fromSwatch().copyWith(
+    secondary: Colors.deepPurpleAccent, // Your accent color
+  ),),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         body: MainScreen(),

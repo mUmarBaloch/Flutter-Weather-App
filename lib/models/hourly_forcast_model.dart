@@ -6,7 +6,7 @@ class HourlyForecast {
   final double temp_c;
 
   // ignore: non_constant_identifier_names
-  HourlyForecast({this.time, this.temp_c});
+  HourlyForecast({required this.time, required this.temp_c});
 
   factory HourlyForecast.getDataFromApi(Map response, int index) {
     String time = data['forecast']['forecastday'][0]['hour'][index]['time'];

@@ -116,7 +116,7 @@ class PredictionCardContainer extends StatefulWidget {
 }
 
 class _PredictionCardContainerState extends State<PredictionCardContainer> {
-  DeviceConfig _device;
+  DeviceConfig? _device;
   @override
   void initState() {
     _device = DeviceConfig();
@@ -135,21 +135,21 @@ class _PredictionCardContainerState extends State<PredictionCardContainer> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => PredictionCard(
                 day: days[index],
-                temprature: ForecastData.forecast[index]['day']['mintemp_c'],
-                status: ForecastData.forecast[index]['day']['condition']
+                temprature: ForecastData.forecast?[index]['day']['mintemp_c'],
+                status: ForecastData.forecast?[index]['day']['condition']
                     ['text'],
-                maxWind: ForecastData.forecast[index]['day']['maxwind_mph'],
-                humidity: ForecastData.forecast[index]['day']['avghumidity'],
+                maxWind: ForecastData.forecast?[index]['day']['maxwind_mph'],
+                humidity: ForecastData.forecast?[index]['day']['avghumidity'],
               ),
               itemCount: days.length,
             ),
-            height: _device.height * 0.25,
+            height: _device!.height * 0.25,
             decoration: cardDecoration,
           );
         } else {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
-            height: _device.height * 0.25,
+            height: _device!.height * 0.25,
             decoration: cardDecoration,
             child: SpinKitRotatingCircle(
               color: Colors.deepPurpleAccent,

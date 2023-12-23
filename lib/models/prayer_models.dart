@@ -3,7 +3,7 @@ class PrayerTime {
   final String time;
   final String prayerName;
 
-  PrayerTime({this.city, this.time, this.prayerName});
+  PrayerTime({required this.city, required this.time, required this.prayerName});
 }
 
 class SunDetails {
@@ -11,5 +11,5 @@ class SunDetails {
   final String sunriseTime;
   final String sunsetTime;
 
-  SunDetails({this.city, this.sunriseTime, this.sunsetTime});
+  SunDetails({required this.city, required this.sunriseTime, required this.sunsetTime});
 }
